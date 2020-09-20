@@ -1,0 +1,9 @@
+.swp
+.DS_Store
+._.DS_Store
+tmain.c
+a.out
+cmake-build-debug
+.idea
+CMakeLists.txt
+agent.h
