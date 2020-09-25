@@ -9,6 +9,7 @@ void mx_error_file_exist(char *file) {
         mx_printerr(file);
         mx_printerr(" does not exist\n");
         close(fd);
+        system("leaks -q pathfinder");
         exit(1);
     }
     close(fd);

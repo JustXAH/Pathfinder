@@ -1,33 +1,38 @@
 #include "pathfinder.h"
 
-static void duplicate_islands_name(t_list **islands_node, char *island) {
+static void duplicate_islands_name(t_list **islands_node, char **island) {
     t_list *buffer_node = (*islands_node);
     static int i = 0;
 
-    if (buffer_node)
-        while(buffer_node) {
-            if (!mx_strcmp(buffer_node->data, island))
+    if (buffer_node) {
+        while (buffer_node) {
+            if (!mx_strcmp(buffer_node->data, (*island))) {
+                free((*island));
                 return;
+            }
             buffer_node = buffer_node->next;
+        }
     }
-    mx_push_back(islands_node, island);
+    mx_push_back(islands_node, (*island));
 }
 
 t_list *mx_parse(f_parse *parse, char *file_name) {
     t_list *islands_node = NULL;
-    char *file_content = mx_file_to_str(file_name);
+//    char *file_content = mx_file_to_str(file_name);
 
-    parse->file_line = mx_strsplit(file_content, '\n');
+    parse->file_line = mx_strsplit(parse->file_content, '\n');
     for (int i = 1; parse->file_line[i] != NULL; i++) {
         parse->temp_hyphen = mx_strsplit(parse->file_line[i], '-');
         parse->temp = mx_strdup(parse->temp_hyphen[0]);
-        duplicate_islands_name(&islands_node, parse->temp);
-//        mx_push_back(&islands_node, parse->temp);
-
+        duplicate_islands_name(&islands_node, &parse->temp);
+//        if (!mx_error_islands_duplicate(parse->temp_hyphen[0], parse->temp_comma[0])) {
+//            mx_del_strarr(&parse->temp_hyphen);
+//            mx_del_strarr(&parse->temp_comma);
+//            break;
+//        }
         parse->temp_comma = mx_strsplit(parse->temp_hyphen[1], ',');
         parse->temp = mx_strdup(parse->temp_comma[0]);
-        duplicate_islands_name(&islands_node, parse->temp);
-//        mx_push_back(&islands_node, parse->temp);
+        duplicate_islands_name(&islands_node, &parse->temp);
         mx_del_strarr(&parse->temp_hyphen);
         mx_del_strarr(&parse->temp_comma);
     }
@@ -36,7 +41,7 @@ t_list *mx_parse(f_parse *parse, char *file_name) {
 //        islands_node = islands_node->next;
 //    }
     mx_del_strarr(&parse->file_line);
-    free(file_content);
+    free(parse->file_content);
     return islands_node;
 }
 

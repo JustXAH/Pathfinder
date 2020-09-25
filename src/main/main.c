@@ -2,11 +2,30 @@
 
 int main(int argc, char *argv[]) {
     f_parse *parse = (f_parse *)malloc(sizeof(f_parse));
-    t_list *main_node;
+    s_matrix *matrix = (s_matrix *)malloc(sizeof(s_matrix));
 
-    mx_structure_initialization(parse);
-    mx_error_handling(argc, argv);
-    main_node = mx_parse(parse, argv[1]);
+    mx_structure_initialization(parse, matrix);
+    mx_error_handling(argc, argv, parse);
+    mx_matrix_creator(parse, matrix);
+
+    //Checking save elements from file (bridges, islands and bridges value)
+    for (int i = 0; parse->e_bridge_save[i] != NULL; i++) {
+        printf("Bridge #|%d| is |%s|\n", i, parse->e_bridge_save[i]);
+        printf("Bridge value is |%lld|\n\n", parse->bridge_value[i]);
+    }
+    for (int j = 0; parse->islands_save[j] != NULL; j++)
+        printf("Unique island #|%d| is |%s|\n", j, parse->islands_save[j]);
+
+    printf("\n");
+
+    for (int k = 0; k < parse->islands_num; k++) {
+        printf("\n");
+        for (int l = 0; l < parse->islands_num; l++)
+            printf("\t|%ld|\t|", matrix->table[k][l]);
+    }
+
+
+//    main_node = mx_parse(parse, argv[1]);
 
 //    printf("File content:\n%s\n", parse->file_content);
 //    while (main_node->next) {
@@ -19,13 +38,13 @@ int main(int argc, char *argv[]) {
 //    t_list *buffer = main_node;
 //    for (int i = 0; buffer; i++) {
 //        char *buf = (char *)buffer->data;
-//        mx_printstr("\""); mx_printstr(buf); mx_printstr("\""); mx_printstr(" ");
+//        printf("Unique island #|%d| is |%s|\n", i + 1, buf);
 //        buffer = buffer->next;
 //    }
-    while (main_node) {
-        free(main_node->data);
-        mx_pop_front(&main_node);
-    }
+//    while (main_node) {
+//        free(main_node->data);
+//        mx_pop_front(&main_node);
+//    }
 //    for (int j = 0; main_node; j++) {
 //        char *buff = (char *) main_node->data;
 //        mx_printstr("\"");
@@ -34,9 +53,19 @@ int main(int argc, char *argv[]) {
 //        mx_printstr(" ");
 //        main_node = main_node->next;
 //    }
+//    free(parse->temp);
+
+    for (int h = 0; h < parse->islands_num; h++)
+        free(matrix->table[h]);
+    free(matrix->table);
+    free(matrix);
+    mx_del_strarr(&parse->e_bridge_save);
+    mx_del_strarr(&parse->islands_save);
+    free(parse->bridge_value);
+    free(parse->file_content);
     free(parse);
-    free(main_node);
-//    free(&main_node);
+
+
     system("leaks -q pathfinder");
     return 0;
 }
