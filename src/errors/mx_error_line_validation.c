@@ -1,14 +1,4 @@
 #include "pathfinder.h"
-//
-//static void output_line_invalid(int line) {
-//    char *line_number = mx_itoa(line);
-//
-//    mx_printerr("error: line ");
-//    mx_printerr(line_number);
-//    mx_printerr(" is not valid\n");
-//    free(line_number);
-//    exit(1);
-//}
 
 static void islands_and_value_exist_validation(char *str, int line) {
 

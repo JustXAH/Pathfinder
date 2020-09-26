@@ -14,5 +14,4 @@ void mx_error_handling(int argc, char **argv, f_parse *parse) {
     parse->file_content = buf;
     mx_error_parsing(parse);
     parse->file_content = buf;
-//    mx_error_parsing()
 }

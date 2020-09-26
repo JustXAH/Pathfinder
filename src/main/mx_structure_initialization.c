@@ -1,6 +1,6 @@
 #include "pathfinder.h"
 
-void mx_structure_initialization(f_parse *parse, s_matrix *matrix) {
+void mx_structure_initialization(f_parse *parse, t_matrix *matrix) {
     parse->file_content = NULL;
     parse->file_line = NULL;
     parse->temp = NULL;
@@ -10,4 +10,5 @@ void mx_structure_initialization(f_parse *parse, s_matrix *matrix) {
     parse->islands_save = NULL;
     parse->bridge_value = NULL;
     parse->islands_num = 0;
+    parse->bridge_num = 0;
 }

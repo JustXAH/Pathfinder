@@ -15,16 +15,16 @@ static void unique_islands_save(f_parse *parse, int *count) {
 
 void mx_error_parsing(f_parse *parse) {
 //    t_list *islands_node = NULL;
-    int size = 0;
     int i = 0;
     int count = 0;
 
 
     parse->file_line = mx_strsplit(parse->file_content, '\n');
     parse->islands_num = mx_atoi(parse->file_line[0]);
-    for ( ; parse->file_line[size + 1] != NULL; size++);
-    parse->e_bridge_save = (char **)malloc(sizeof(char *) * size + 1);
-    parse->bridge_value = (long long int *)malloc(sizeof(long long int) * size);
+    for (i = 0; parse->file_line[i + 1] != NULL; i++)
+        parse->bridge_num++;
+    parse->e_bridge_save = (char **)malloc(sizeof(char *) * parse->bridge_num + 1);
+    parse->bridge_value = (long long int *)malloc(sizeof(long long int) * parse->bridge_num);
     parse->islands_save = (char **)malloc(sizeof(char *) * parse->islands_num + 1);
     for (int j = 0; j <= parse->islands_num; j++)
         parse->islands_save[j] = NULL;
@@ -40,7 +40,7 @@ void mx_error_parsing(f_parse *parse) {
             mx_error_free_memory(&parse);
             mx_error_output_line_invalid(i + 1);
         }
-        parse->bridge_value[i - 1] = mx_atoi(parse->temp_comma[1]);
+        parse->bridge_value[i - 1] = mx_atoi_long(parse->temp_comma[1]);
         parse->temp = mx_strdup(parse->temp_hyphen[0]);
         unique_islands_save(parse, &count);
         free(parse->temp);
@@ -53,9 +53,9 @@ void mx_error_parsing(f_parse *parse) {
         mx_del_strarr(&parse->temp_comma);
 
     }
-    mx_error_number_of_islands_validation(parse, count, size);
+    mx_error_number_of_islands_validation(parse, count, parse->bridge_num);
     mx_error_bridge_duplicate(parse, i);
-    mx_error_value_sum_validation(parse, size);
+    mx_error_value_sum_validation(parse, parse->bridge_num);
 
     mx_del_strarr(&parse->file_line);
 }

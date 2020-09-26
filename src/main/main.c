@@ -2,27 +2,62 @@
 
 int main(int argc, char *argv[]) {
     f_parse *parse = (f_parse *)malloc(sizeof(f_parse));
-    s_matrix *matrix = (s_matrix *)malloc(sizeof(s_matrix));
+    t_matrix *matrix = (t_matrix *)malloc(sizeof(t_matrix));
 
     mx_structure_initialization(parse, matrix);
     mx_error_handling(argc, argv, parse);
     mx_matrix_creator(parse, matrix);
+    mx_matrix_filling(parse, matrix);
 
-    //Checking save elements from file (bridges, islands and bridges value)
-    for (int i = 0; parse->e_bridge_save[i] != NULL; i++) {
-        printf("Bridge #|%d| is |%s|\n", i, parse->e_bridge_save[i]);
-        printf("Bridge value is |%lld|\n\n", parse->bridge_value[i]);
-    }
-    for (int j = 0; parse->islands_save[j] != NULL; j++)
-        printf("Unique island #|%d| is |%s|\n", j, parse->islands_save[j]);
 
-    printf("\n");
 
-    for (int k = 0; k < parse->islands_num; k++) {
+//    for (int j = 0; parse->islands_save[j] != NULL; j++)
+//        printf("    |%s|\t  ", parse->islands_save[j]);
+//
+//    printf("\n");
+//    for (int i = 0; i < parse->islands_num; i++) {
+//        printf("\n");
+//        for (int j = 0; j < parse->islands_num; j++)
+//            printf("\t|%ld|\t", matrix->table[i][j]);
+//    }
+//    printf("\n\n\n");
+
+
+
+//    for (int j = 0; parse->islands_save[j] != NULL; j++)
+//        printf("    |%s|\t  ", parse->islands_save[j]);
+
+    for (int i = 0; i < parse->islands_num; i++) {
         printf("\n");
-        for (int l = 0; l < parse->islands_num; l++)
-            printf("\t|%ld|\t|", matrix->table[k][l]);
+        printf("|%s|", parse->islands_save[i]);
+        for (int j = 0; j < parse->islands_num; j++)
+            printf("\t|%ld|\t", matrix->table[i][j]);
     }
+    printf("\n\n\n");
+
+    mx_floyd_warshall_algorithm(parse, matrix);
+
+//    for (int j = 0; parse->islands_save[j] != NULL; j++)
+//        printf("    |%s|\t  ", parse->islands_save[j]);
+
+    for (int i = 0; i < parse->islands_num; i++) {
+        printf("\n");
+        printf("|%s|", parse->islands_save[i]);
+        for (int j = 0; j < parse->islands_num; j++)
+            printf("\t|%ld|\t", matrix->table[i][j]);
+    }
+    printf("\n\n\n");
+//    Checking save elements from file (bridges, islands and bridges value)
+//    for (int i = 0; parse->e_bridge_save[i] != NULL; i++) {
+//        printf("Bridge #|%d| is |%s|\n", i, parse->e_bridge_save[i]);
+//        printf("Bridge value is |%lld|\n\n", parse->bridge_value[i]);
+//    }
+//    for (int j = 0; parse->islands_save[j] != NULL; j++)
+//        printf("Unique island #|%d| is |%s|\n", j, parse->islands_save[j]);
+//
+//    printf("\n");
+
+
 
 
 //    main_node = mx_parse(parse, argv[1]);

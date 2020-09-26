@@ -22,16 +22,17 @@ typedef struct file_parse {
     char **islands_save;
     long long int *bridge_value;
     int islands_num;
+    int bridge_num;
 }              f_parse;
 
-typedef struct matrix_struct {
+typedef struct the_matrix {
     long int **table;
-}              s_matrix;
+}              t_matrix;
 
 /*
  * Initialization
  */
-void mx_structure_initialization(f_parse *parse, s_matrix *matrix);
+void mx_structure_initialization(f_parse *parse, t_matrix *matrix);
 
 /*
  * Error handling
@@ -53,7 +54,10 @@ void mx_error_value_sum_validation(f_parse *parse, int size);
 /*
  * Matrix and Parsing
  */
-void mx_matrix_creator(f_parse *parse, s_matrix *matrix);
-//t_list *mx_parse(f_parse *parse, char *file_name);
+void mx_matrix_creator(f_parse *parse, t_matrix *matrix);
+void mx_matrix_filling(f_parse *parse, t_matrix *matrix);
 
-
+/*
+ * Algorithm
+ */
+void mx_floyd_warshall_algorithm(f_parse *parse, t_matrix *matrix);
