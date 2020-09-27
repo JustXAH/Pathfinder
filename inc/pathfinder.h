@@ -61,3 +61,12 @@ void mx_matrix_filling(f_parse *parse, t_matrix *matrix);
  * Algorithm
  */
 void mx_floyd_warshall_algorithm(f_parse *parse, t_matrix *matrix);
+
+/*
+ * Output
+ */
+void mx_output_generating(f_parse *parse, t_matrix *matrix);
+void mx_output_boundary(void);
+void mx_output_path(f_parse *parse, int f_isl, int s_isl);
+void mx_output_route(f_parse *parse, t_matrix *matrix, int f_isl, int s_isl);
+void mx_output_distance(t_matrix *matrix, int col, int row);

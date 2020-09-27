@@ -47,6 +47,8 @@ int main(int argc, char *argv[]) {
             printf("\t|%ld|\t", matrix->table[i][j]);
     }
     printf("\n\n\n");
+
+    mx_output_generating(parse, matrix);
 //    Checking save elements from file (bridges, islands and bridges value)
 //    for (int i = 0; parse->e_bridge_save[i] != NULL; i++) {
 //        printf("Bridge #|%d| is |%s|\n", i, parse->e_bridge_save[i]);
