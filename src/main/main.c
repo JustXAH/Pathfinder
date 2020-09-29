@@ -1,15 +1,54 @@
 #include "pathfinder.h"
 
+static void free_memory(t_parse *parse, t_matrix *mx) {
+    for (int i = 0; i < parse->islands_num; i++) {
+        free(mx->adj_table[i]);
+        free(mx->primary_table[i]);
+    }
+    free(mx->adj_table);
+    free(mx->primary_table);
+    free(mx);
+    mx_del_strarr(&parse->e_bridge_save);
+    mx_del_strarr(&parse->islands_save);
+    free(parse->bridge_value);
+    free(parse->file_content);
+    free(parse);
+}
+
 int main(int argc, char *argv[]) {
-    f_parse *parse = (f_parse *)malloc(sizeof(f_parse));
-    t_matrix *matrix = (t_matrix *)malloc(sizeof(t_matrix));
+    t_parse *parse = (t_parse *)malloc(sizeof(t_parse));
+    t_matrix *mx = (t_matrix *)malloc(sizeof(t_matrix));
 
-    mx_structure_initialization(parse, matrix);
+    mx_structure_initialization(parse, mx);
     mx_error_handling(argc, argv, parse);
-    mx_matrix_creator(parse, matrix);
-    mx_matrix_filling(parse, matrix);
+    mx_matrix_creator(parse, mx);
+    mx_matrix_filling(parse, mx);
+    mx_primary_path_matrix(parse, mx);
+    mx_floyd_warshall_algorithm(parse, mx);
 
+    for (int i = 0; i < parse->islands_num; i++) {
+        for (int j = 0; j < parse->islands_num; j++) {
+            if (i < j) {
+                mx_output_generating(parse, mx, i, j);
+            }
+        }
+    }
 
+//    for (int i = 0; i < parse->islands_num; i++) {
+//        printf("\n");
+//        printf("|%s|", parse->islands_save[i]);
+//        for (int j = 0; j < parse->islands_num; j++)
+//            printf("\t|%ld|\t", mx->primary_table[i][j]);
+//    }
+//    printf("\n\n\n");
+//
+//    for (int i = 0; i < parse->islands_num; i++) {
+//        printf("\n");
+//        printf("|%s|", parse->islands_save[i]);
+//        for (int j = 0; j < parse->islands_num; j++)
+//            printf("\t|%ld|\t", mx->adj_table[i][j]);
+//    }
+//    printf("\n\n\n");
 
 //    for (int j = 0; parse->islands_save[j] != NULL; j++)
 //        printf("    |%s|\t  ", parse->islands_save[j]);
@@ -27,28 +66,17 @@ int main(int argc, char *argv[]) {
 //    for (int j = 0; parse->islands_save[j] != NULL; j++)
 //        printf("    |%s|\t  ", parse->islands_save[j]);
 
-    for (int i = 0; i < parse->islands_num; i++) {
-        printf("\n");
-        printf("|%s|", parse->islands_save[i]);
-        for (int j = 0; j < parse->islands_num; j++)
-            printf("\t|%ld|\t", matrix->table[i][j]);
-    }
-    printf("\n\n\n");
 
-    mx_floyd_warshall_algorithm(parse, matrix);
+
+
 
 //    for (int j = 0; parse->islands_save[j] != NULL; j++)
 //        printf("    |%s|\t  ", parse->islands_save[j]);
 
-    for (int i = 0; i < parse->islands_num; i++) {
-        printf("\n");
-        printf("|%s|", parse->islands_save[i]);
-        for (int j = 0; j < parse->islands_num; j++)
-            printf("\t|%ld|\t", matrix->table[i][j]);
-    }
-    printf("\n\n\n");
 
-    mx_output_generating(parse, matrix);
+
+//    mx_output_generating(parse, matrix);
+
 //    Checking save elements from file (bridges, islands and bridges value)
 //    for (int i = 0; parse->e_bridge_save[i] != NULL; i++) {
 //        printf("Bridge #|%d| is |%s|\n", i, parse->e_bridge_save[i]);
@@ -92,16 +120,7 @@ int main(int argc, char *argv[]) {
 //    }
 //    free(parse->temp);
 
-    for (int h = 0; h < parse->islands_num; h++)
-        free(matrix->table[h]);
-    free(matrix->table);
-    free(matrix);
-    mx_del_strarr(&parse->e_bridge_save);
-    mx_del_strarr(&parse->islands_save);
-    free(parse->bridge_value);
-    free(parse->file_content);
-    free(parse);
-
+    free_memory(parse, mx);
 
     system("leaks -q pathfinder");
     return 0;

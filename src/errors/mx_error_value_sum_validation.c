@@ -1,6 +1,6 @@
 #include "pathfinder.h"
 
-void mx_error_value_sum_validation(f_parse *parse, int size) {
+void mx_error_value_sum_validation(t_parse *parse, int size) {
     long long int value_sum = 0;
 
     for (int i = 0; i < size; i++) {

@@ -1,6 +1,6 @@
 #include "pathfinder.h"
 
-void mx_error_handling(int argc, char **argv, f_parse *parse) {
+void mx_error_handling(int argc, char **argv, t_parse *parse) {
     int line = 1;
     char *buf = NULL;
 

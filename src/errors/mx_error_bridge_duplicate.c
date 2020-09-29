@@ -1,6 +1,6 @@
 #include "pathfinder.h"
 
-static void output_bridge_duplicate(f_parse *parse, char **tmp1,
+static void output_bridge_duplicate(t_parse *parse, char **tmp1,
                                     char **tmp2) {
     mx_del_strarr(&tmp1);
     mx_del_strarr(&tmp2);
@@ -10,7 +10,7 @@ static void output_bridge_duplicate(f_parse *parse, char **tmp1,
     exit(1);
 }
 
-void mx_error_bridge_duplicate(f_parse *parse, int len) {
+void mx_error_bridge_duplicate(t_parse *parse, int len) {
     char **tmp_islands1 = NULL;
     char **tmp_islands2 = NULL;
 

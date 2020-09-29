@@ -1,6 +1,6 @@
 #include "pathfinder.h"
 
-void mx_error_number_of_islands_validation(f_parse *parse,
+void mx_error_number_of_islands_validation(t_parse *parse,
                                            int unique_islands_num, int line) {
     if (parse->islands_num != unique_islands_num) {
         if (line > 2)

@@ -1,6 +1,6 @@
 #include "pathfinder.h"
 
-static void unique_islands_save(f_parse *parse, int *count) {
+static void unique_islands_save(t_parse *parse, int *count) {
     int i = 0;
 
     if ((*count) != 0) {
@@ -13,7 +13,7 @@ static void unique_islands_save(f_parse *parse, int *count) {
     (*count) += 1;
 }
 
-void mx_error_parsing(f_parse *parse) {
+void mx_error_parsing(t_parse *parse) {
 //    t_list *islands_node = NULL;
     int i = 0;
     int count = 0;
