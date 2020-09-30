@@ -11,4 +11,9 @@ void mx_structure_initialization(t_parse *parse, t_matrix *mx) {
     parse->bridge_value = NULL;
     parse->islands_num = 0;
     parse->bridge_num = 0;
+
+    mx->adj_table = NULL;
+    mx->primary_table = NULL;
+    mx->way = NULL;
+    mx->way = 0;
 }

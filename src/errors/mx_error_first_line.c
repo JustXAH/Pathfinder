@@ -6,15 +6,12 @@ void mx_error_first_line(char **str, int *line) {
     if ((*str)[0] == '\n') {
         mx_printerr("error: line 1 is not valid\n");
         free((*str));
-        system("leaks -q pathfinder");
         exit(1);
     }
-
     for (; (*str)[i] != '\n' && (*str)[i] != '\0'; i++) {
         if (mx_isdigit((*str)[i]) != 1) {
             mx_printerr("error: line 1 is not valid\n");
             free((*str));
-            system("leaks -q pathfinder");
             exit(1);
         }
     }

@@ -6,7 +6,6 @@ static void output_bridge_duplicate(t_parse *parse, char **tmp1,
     mx_del_strarr(&tmp2);
     mx_error_free_memory(&parse);
     mx_printerr("error: duplicate bridges\n");
-    system("leaks -q pathfinder");
     exit(1);
 }
 

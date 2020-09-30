@@ -13,6 +13,5 @@ void mx_matrix_creator(t_parse *parse, t_matrix *mx) {
             mx->adj_table[col][row] = INT_MAX;
             if (col == row)
                 mx->adj_table[col][row] = 0;
-//            mx->table[col][row] = 101;
         }
 }

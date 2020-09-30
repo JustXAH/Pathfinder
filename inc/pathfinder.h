@@ -28,13 +28,9 @@ typedef struct file_parse {
 typedef struct the_matrix {
     long int **adj_table;
     long int **primary_table;
-}              t_matrix;
-
-typedef struct pathfinder_output {
     int *way;
     int waypoints;
-}              t_path_output;
-
+}              t_matrix;
 
 /*
  * Initialization
@@ -74,9 +70,8 @@ void mx_floyd_warshall_algorithm(t_parse *parse, t_matrix *mx);
  * Output
  */
 void mx_output_generating(t_parse *parse, t_matrix *mx, int i, int j);
-void mx_output_recursive_algorithm(t_parse *parse, t_matrix *mx,
-                                   t_path_output *out);
+void mx_output_recursive_algorithm(t_parse *parse, t_matrix *mx);
 void mx_output_boundary(void);
-void mx_output_path(t_parse *parse, t_path_output *out);
-void mx_output_way(t_parse *parse, t_path_output *out);
-void mx_output_distance(t_matrix *mx, t_path_output *out);
+void mx_output_path(t_parse *parse, t_matrix *mx);
+void mx_output_way(t_parse *parse, t_matrix *mx);
+void mx_output_distance(t_matrix *mx);

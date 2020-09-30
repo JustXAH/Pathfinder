@@ -12,7 +12,6 @@ void mx_error_file_empty(char *file) {
         mx_printerr(file);
         mx_printerr(" is empty\n");
         close(fd);
-        system("leaks -q pathfinder");
         exit(1);
     }
     close(fd);
